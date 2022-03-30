@@ -102,7 +102,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox fx:id="playAgain" alignment="CENTER" style="-fx-background-color: #8fdd2c; -fx-background-radius: 30%;">
+                        <HBox fx:id="playAgain" alignment="CENTER" onMouseClicked="#playAgain" style="-fx-background-color: #8fdd2c; -fx-background-radius: 30%;">
                            <children>
                               <ImageView blendMode="ADD" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
