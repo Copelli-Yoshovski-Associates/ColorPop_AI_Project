@@ -17,7 +17,7 @@
          <center>
             <ImageView fx:id="imageLogo" fitHeight="109.0" fitWidth="451.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../../resources/colorpop_logo.png" />
+                  <Image url="@../../../resources/colorpop_logo.png" />
                </image>
             </ImageView>
          </center>
@@ -36,7 +36,7 @@
                <children>
                   <ImageView fx:id="imagePlayHuman" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/blue_play.png" />
+                        <Image url="@../../../resources/blue_play.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -44,7 +44,7 @@
                   </ImageView>
                   <ImageView fx:id="imagePlayComputer" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/yellow_play_AI.png" />
+                        <Image url="@../../../resources/yellow_play_AI.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -61,7 +61,7 @@
                <children>
                   <ImageView fx:id="imageScore" fitHeight="44.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/star_icon.png" />
+                        <Image url="@../../../resources/star_icon.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="labelScore" text="333,333" textFill="#2e9cd7">
@@ -92,8 +92,11 @@
                   <Insets right="20.0" />
                </BorderPane.margin>
                <image>
-                  <Image url="@../../resources/info.png" />
+                  <Image url="@../../../resources/info.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </right>
       </BorderPane>
