@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebef86e6-c6bb-4057-aa4b-514a38d852df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/SceneHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ebef86e6-c6bb-4057-aa4b-514a38d852df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1648641065448</updated>
       <workItem from="1648641066711" duration="26000" />
-      <workItem from="1648649128271" duration="925000" />
+      <workItem from="1648649128271" duration="986000" />
     </task>
     <servers />
   </component>
