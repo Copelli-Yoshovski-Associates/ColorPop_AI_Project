@@ -31,7 +31,7 @@ public class PlayMenuController {
 
     @FXML
     void playComputerMode(MouseEvent event) throws Exception{
-        
+
         SceneHandler.getInstance().setGameScene();
     }
 

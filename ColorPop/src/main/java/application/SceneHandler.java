@@ -69,13 +69,13 @@ public class SceneHandler {
 			FXMLLoader loader = loadFXML("GameBoard");
 			BorderPane root = (BorderPane) loader.load();
 			gameBoardController = loader.getController();
-            gameBoardController.init();
-			scene = new Scene(root);
+            scene = new Scene(root);
 			stage.setMinHeight(Settings.DEFAULT_HEIGHT);
 			stage.setMinWidth(Settings.DEFAULT_WIDTH);
-			stage.setScene(scene);
-			stage.setResizable(true);
-			stage.setMaximized(true);
+            stage.setScene(scene);
+			stage.setResizable(!false);
+			stage.setMaximized(!false);
+            
 			stage.show();
     }
 }
