@@ -16,7 +16,7 @@
          <center>
             <ImageView fx:id="imageLogo" fitHeight="109.0" fitWidth="451.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../../../resources/colorpop_logo.png" />
+                  <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/colorpop_logo.png" />
                </image>
             </ImageView>
          </center>

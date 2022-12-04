@@ -32,7 +32,7 @@ public class SceneHandler {
             scene = new Scene(root);
           //  stage.getIcons().add(new Image(getClass().getResourceAsStream(Settings.DEFAULT_DASHBOARD_BG_PHOTO_PATH)));
             stage.setScene(scene);
-           // setPlayMenyScene();
+            setPlayMenyScene();
         } catch (Exception e) {
            // Logger.getInstance().captureException(e);
             return;
@@ -50,7 +50,21 @@ public class SceneHandler {
      */
     public FXMLLoader loadFXML(String fileName) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/" + fileName + ".fxml"));
+        System.out.println("hello");
         return loader;
     }
+
+    public void setPlayMenyScene() {
+        stage.setTitle("Play Menu");
+       // stage.setHeight(Settings.LOGIN_HEIGHT);
+        //stage.setWidth(Settings.LOGIN_WIDTH);
+        stage.setHeight(600);
+        stage.setWidth(600);
+        stage.setResizable(false);
+        stage.setMaximized(false);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
 
 }
