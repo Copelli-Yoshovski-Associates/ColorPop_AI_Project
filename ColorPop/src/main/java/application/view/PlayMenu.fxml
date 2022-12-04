@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -10,13 +17,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PlayMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PlayMenuController">
    <top>
       <BorderPane prefHeight="180.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <center>
             <ImageView fx:id="imageLogo" fitHeight="109.0" fitWidth="451.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/colorpop_logo.png" />
+                  <Image url="@../../colorpop_logo.png" />
                </image>
             </ImageView>
          </center>
@@ -35,7 +42,7 @@
                <children>
                   <ImageView fx:id="imagePlayHuman" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#playHumanMode" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/blue_play.png" />
+                        <Image url="@../../blue_play.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -43,7 +50,7 @@
                   </ImageView>
                   <ImageView fx:id="imagePlayComputer" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#playComputerMode" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/yellow_play_AI.png" />
+                        <Image url="@../../yellow_play_AI.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -60,7 +67,7 @@
                <children>
                   <ImageView fx:id="imageScore" fitHeight="44.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/star_icon.png" />
+                        <Image url="@../../star_icon.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="labelScore" text="111,111" textFill="#2e9cd7">
@@ -91,7 +98,7 @@
                   <Insets right="20.0" />
                </BorderPane.margin>
                <image>
-                  <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/info.png" />
+                  <Image url="@../../info.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
