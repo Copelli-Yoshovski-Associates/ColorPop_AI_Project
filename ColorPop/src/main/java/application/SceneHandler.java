@@ -3,8 +3,6 @@ package application;
 import application.controller.PlayMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -32,7 +30,7 @@ public class SceneHandler {
             scene = new Scene(root);
           //  stage.getIcons().add(new Image(getClass().getResourceAsStream(Settings.DEFAULT_DASHBOARD_BG_PHOTO_PATH)));
             stage.setScene(scene);
-            setPlayMenyScene();
+            setPlayMenuScene();
         } catch (Exception e) {
            // Logger.getInstance().captureException(e);
             return;
@@ -54,7 +52,7 @@ public class SceneHandler {
         return loader;
     }
 
-    public void setPlayMenyScene() {
+    public void setPlayMenuScene() {
         stage.setTitle("Play Menu");
        // stage.setHeight(Settings.LOGIN_HEIGHT);
         //stage.setWidth(Settings.LOGIN_WIDTH);

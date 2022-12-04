@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ebef86e6-c6bb-4057-aa4b-514a38d852df" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/SceneHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/SceneHandler.java" afterDir="false" />
     </list>
@@ -45,7 +46,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../AI/3ColEmbasp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RecentsManager">
@@ -101,7 +102,8 @@
       <workItem from="1669844078046" duration="230000" />
       <workItem from="1670121362383" duration="420000" />
       <workItem from="1670121808422" duration="316000" />
-      <workItem from="1670161496761" duration="1338000" />
+      <workItem from="1670161496761" duration="1918000" />
+      <workItem from="1670163486659" duration="484000" />
     </task>
     <servers />
   </component>
