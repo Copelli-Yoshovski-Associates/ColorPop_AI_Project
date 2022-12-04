@@ -35,7 +35,7 @@
                <children>
                   <ImageView fx:id="imagePlayHuman" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#playHumanMode" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/blue_play.png" />
+                        <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/blue_play.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -43,7 +43,7 @@
                   </ImageView>
                   <ImageView fx:id="imagePlayComputer" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#playComputerMode" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/yellow_play_AI.png" />
+                        <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/yellow_play_AI.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -60,10 +60,10 @@
                <children>
                   <ImageView fx:id="imageScore" fitHeight="44.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/star_icon.png" />
+                        <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/star_icon.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="labelScore" text="333,333" textFill="#2e9cd7">
+                  <Label fx:id="labelScore" text="111,111" textFill="#2e9cd7">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -91,7 +91,7 @@
                   <Insets right="20.0" />
                </BorderPane.margin>
                <image>
-                  <Image url="@../../../resources/info.png" />
+                  <Image url="file:/C:/Users/stefa/Documents/GitHub/AI_Project/ColorPop/src/main/resources/info.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />

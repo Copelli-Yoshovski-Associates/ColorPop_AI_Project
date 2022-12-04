@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -29,8 +30,9 @@ public class PlayMenuController {
     private ImageView imageInfo;
 
     @FXML
-    void playComputerMode(MouseEvent event) {
-
+    void playComputerMode(MouseEvent event) throws Exception{
+        
+        SceneHandler.getInstance().setGameScene();
     }
 
     @FXML

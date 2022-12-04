@@ -11,6 +11,6 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SceneHandler.getInstance().init(primaryStage);
+        SceneHandler.getInstance().init(primaryStage);        
     }
 }
