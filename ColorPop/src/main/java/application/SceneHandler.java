@@ -3,7 +3,6 @@ package application;
 import application.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -28,7 +27,7 @@ public class SceneHandler {
         try {
             this.stage = stage;
             FXMLLoader loader = loadFXML("PlayMenu");
-            BorderPane root = (BorderPane) loader.load();
+            BorderPane root = loader.load();
             scene = new Scene(root);
           //  stage.getIcons().add(new Image(getClass().getResourceAsStream(Settings.DEFAULT_DASHBOARD_BG_PHOTO_PATH)));
             stage.setScene(scene);
@@ -67,17 +66,15 @@ public class SceneHandler {
 
     public void setGameScene() throws Exception{
 			FXMLLoader loader = loadFXML("GameBoard");
-			BorderPane root = (BorderPane) loader.load();
+			BorderPane root = loader.load();
 			gameBoardController = loader.getController();
             scene = new Scene(root);
 			stage.setMinHeight(Settings.DEFAULT_HEIGHT);
 			stage.setMinWidth(Settings.DEFAULT_WIDTH);
             stage.setScene(scene);
-			stage.setResizable(!false);
-			stage.setMaximized(!false);
+			stage.setResizable(true);
+			stage.setMaximized(true);
 			stage.show();
-            stage.setOnCloseRequest(e -> {
-                gameBoardController.showResults();
-            });
+            stage.setOnCloseRequest(e -> gameBoardController.showResults());
     }
 }
