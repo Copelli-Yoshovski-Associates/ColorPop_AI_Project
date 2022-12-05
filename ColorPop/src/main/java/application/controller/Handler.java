@@ -3,9 +3,11 @@ package application.controller;
 import application.Settings;
 import application.model.Color;
 
+import java.util.Random;
+
 public class Handler {
 
-	public int[][] board = new int[Settings.ROWS][Settings.COLUMNS];
+	private int[][] board = new int[Settings.ROWS][Settings.COLUMNS];
 
 	/**
 	 * Generates a random color
@@ -13,8 +15,9 @@ public class Handler {
 	 * @return
 	 */
 	private Color randomColor() {
-		int randomNumber = (int) (Math.random() * Settings.TOTAL_COLORS) + 1;
-		return Color.getColor(randomNumber);
+		Random random = new Random();
+		int color = random.nextInt(Settings.TOTAL_COLORS)+1;
+		return Color.getColor(color);
 	}
 
 	public void initializeBoard() {
@@ -23,19 +26,16 @@ public class Handler {
 				board[i][j] = Color.EMPTY.number;
 	}
 
-	// genarate an array of 10 random colors
 	public Color[] generatePreview() {
-		Color[] preview = new Color[Settings.ROWS];
-		for (int i = 0; i < Settings.ROWS; i++)
+		Color[] preview = new Color[Settings.COLUMNS];
+		for (int i = 0; i < Settings.COLUMNS; i++)
 			preview[i] = randomColor();
 		return preview;
 	}
 
 	// put the generated array of color in the last row of the board
 	public void putPreview(Color[] preview) {
-
 		shiftBoardUp();
-
 		for (int i = 0; i < Settings.COLUMNS; i++)
 			board[Settings.ROWS - 1][i] = preview[i].number;
 
@@ -47,6 +47,7 @@ public class Handler {
 				System.out.print(board[i][j] + " ");
 			System.out.println();
 		}
+		System.out.println("---------------\n");
 	}
 
 	public Color[][] getBoardArray() {
@@ -70,9 +71,5 @@ public class Handler {
 		for (int i = 0; i < Settings.COLUMNS; i++)
 			if (board[0][i] != Color.EMPTY.number) return true;
 		return false;
-
-
 	}
-
-
 }
