@@ -75,7 +75,9 @@ public class SceneHandler {
             stage.setScene(scene);
 			stage.setResizable(!false);
 			stage.setMaximized(!false);
-            
 			stage.show();
+            stage.setOnCloseRequest(e -> {
+                gameBoardController.showResults();
+            });
     }
 }
