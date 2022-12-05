@@ -39,30 +39,29 @@ public class GameBoardController {
 			@Override
 			public void run() {
 				if (time.getText().equals("0") || h.gameOver()) showResults();
-				time.setText(String.valueOf(Integer.parseInt(time.getText()) - 1));
+				else time.setText(String.valueOf(Integer.parseInt(time.getText()) - 1));
 				System.out.println(time.getText());
 			}
 		};
-		timer.scheduleAtFixedRate(timeTask, Long.parseLong("1000"), Long.parseLong("1000"));
+		timer.scheduleAtFixedRate(timeTask, 1000, 1000);
 		h.initializeBoard();
-		for (int i = 0; i < Settings.ROWS/2; i++)
-			drawBoard();
-
+		drawBoard();
 	}
 
 	private void drawBoard() {
 		colorBlocks.getChildren().clear();
 		h.putPreview(h.generatePreview());
 		fillWithAnchorPanes();
+		checkEmptySpacesOnColumnForFalling();
 		ChangeColorGrid();
 		h.getBoard();
 	}
 
-	private void showResults() {
+	public void showResults() {
 		timer.cancel();
 		// TODO Auto-generated method stub
 		System.out.println("show results");
-		System.exit(2);
+		// System.exit(2);
 	}
 
 	// fill grade pane with anchor panes
@@ -79,41 +78,23 @@ public class GameBoardController {
 				changeColor(i, j, h.getBoardArray()[i][j]);
 	}
 
+	private void checkEmptySpacesOnColumnForFalling() {
+		boolean hasToFall = true;
+		while (hasToFall) {
+			hasToFall = false;
+			for (int i = 1; i < Settings.ROWS; i++)
+				for (int j = 0; j < Settings.COLUMNS; j++) {
+					int currentColor = h.getBoardArray()[i][j].number;
+					int colorUnder = h.getBoardArray()[i - 1][j].number;
+					if (currentColor != Color.EMPTY.number || colorUnder == currentColor) continue;
+					currentColor = colorUnder;
+					colorUnder = Color.EMPTY.number;
+					hasToFall = true;
+				}
+		}
+	}
+
 	private void changeColor(int row, int column, Color color) {
 		colorBlocks.getChildren().get(row * Settings.COLUMNS + column).setStyle("-fx-background-color: " + Color.getColor(color.getNumber()).color + ";");
 	}
-
-	/*
-	 * // change the background color of the anchor pane at specific cell from grid
-	 * pane
-	 * private static void changeColor(int row, int column, Color color) {
-	 * AnchorPane anchorPane = (AnchorPane) colorBlocks.getChildren().get(row *
-	 * Settings.COLUMNS + column);
-	 * anchorPane.setStyle("-fx-background-color: " + color.color);
-	 * }
-	 *
-	 * // update the color of entire grid pane
-	 * public static void updateColorBlocks() {
-	 * for (int i = 0; i < Settings.ROWS; i++) {
-	 * for (int j = 0; j < Settings.COLUMNS; j++) {
-	 * changeColor(i, j, Color.getColor(h.board[i][j]));
-	 * }
-	 * }
-	 * }
-	 *
-	 * //update colorBlocks with matrix from Handler
-	 * public static void updateColorBlocks(){
-	 * colorBlocks.getChildren().clear();
-	 * for(int i = 0; i < 10; i++){
-	 * for(int j = 0; j < 20; j++){
-	 * Rectangle r = new Rectangle(20, 20);
-	 * r.setFill(Color.getColor())
-	 * //add anchor pane in each ceel of the grid pane
-	 * colorBlocks.add(new Rectangle(20, 20, Color.getColor(h.board[i][j]).color),
-	 * j, i);
-	 * }
-	 * }
-	 * }
-	 */
-
 }
