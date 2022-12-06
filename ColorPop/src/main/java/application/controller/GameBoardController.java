@@ -3,6 +3,7 @@ package application.controller;
 import application.Settings;
 import application.model.Color;
 import application.model.Point;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,18 +42,31 @@ public class GameBoardController {
 		TimerTask timeTask = new TimerTask() {
 			@Override
 			public void run() {
-				if (time.getText().equals("0") || h.gameOver()) showResults();
-				else time.setText(String.valueOf(Integer.parseInt(time.getText()) - 1));
-				System.out.println(time.getText());
+				int currentTime = Integer.parseInt(time.getText());
+				if (currentTime == 0 || h.gameOver()) showResults();
+				else time.setText((currentTime - 1) + "");
+				Random random = new Random();
+
+				if (currentTime % 5 == 0) Platform.runLater(() -> {
+					int randomColumn = random.nextInt(Settings.COLUMNS);
+					int randomRow = random.nextInt(Settings.ROWS);
+					if (removeNeighbors(randomRow, randomColumn)) drawBoard();
+
+				});
+
+
+				if (currentTime % (Settings.GENERATION_TIME * 2) == 0 || currentTime == Settings.MAX_TIME)
+					Platform.runLater(() -> {
+						System.out.println("Generating new preview");
+						drawBoard();
+					});
+				System.out.println(currentTime);
+
+
 			}
 		};
 		timer.scheduleAtFixedRate(timeTask, 1000, 1000);
 		h.initializeBoard();
-		drawBoard();
-		int posX = Settings.ROWS - 1;
-		int posY = Settings.COLUMNS - 2;
-		System.err.println(countNeighbors(posX, posY));
-		System.err.println(getNeighbors(posX, posY));
 	}
 
 	private void defaultSchema() {
@@ -64,7 +79,6 @@ public class GameBoardController {
 		if (Settings.DEBUG) defaultSchema();
 		else h.putPreview(h.generatePreview());
 		fillWithAnchorPanes();
-		checkEmptySpacesOnColumnForFalling();
 		ChangeColorGrid();
 		h.printBoard();
 	}
@@ -73,7 +87,7 @@ public class GameBoardController {
 		timer.cancel();
 		// TODO Auto-generated method stub
 		System.out.println("show results");
-		 System.exit(2);
+		System.exit(2);
 	}
 
 	// fill grade pane with anchor panes
@@ -90,7 +104,8 @@ public class GameBoardController {
 				changeColor(i, j, h.get(i, j));
 	}
 
-	private void checkEmptySpacesOnColumnForFalling() {
+	private boolean checkEmptySpacesOnColumnForFalling() {
+		int moves = 0;
 		boolean hasToFall = true;
 		while (hasToFall) {
 			hasToFall = false;
@@ -98,12 +113,15 @@ public class GameBoardController {
 				for (int j = 0; j < Settings.COLUMNS; j++) {
 					int currentColor = h.get(i, j).getNumber();
 					int colorUnder = h.get(i - 1, j).getNumber();
-					if (currentColor != Color.EMPTY.getNumber() || colorUnder == currentColor) continue;
-					currentColor = colorUnder;
-					colorUnder = Color.EMPTY.getNumber();
-					hasToFall = true;
+					if (currentColor == Color.EMPTY.getNumber() && colorUnder != Color.EMPTY.getNumber()) {
+						h.set(i, j, h.get(i - 1, j));
+						h.set(i - 1, j, Color.EMPTY);
+						hasToFall = true;
+						moves++;
+					}
 				}
 		}
+		return moves != 0;
 	}
 
 	private void changeColor(int row, int column, Color color) {
@@ -116,6 +134,19 @@ public class GameBoardController {
 
 	private List<Point> getNeighbors(int row, int column) {
 		return h.getNeighbors(row, column, new boolean[Settings.ROWS][Settings.COLUMNS], h.get(row, column));
+	}
+
+	private boolean removeNeighbors(int row, int column) {
+		List<Point> neighbors = getNeighbors(row, column);
+		System.out.println("removing " + neighbors.size() + " neighbors");
+		if (neighbors.size() < 2) return false;
+		System.out.println("removing " + countNeighbors(row, column) + " neighbors");
+		for (Point p : neighbors) {
+			h.set(p.getX(), p.getY(), Color.EMPTY);
+			changeColor(p.getX(), p.getY(), Color.EMPTY);
+		}
+
+		return checkEmptySpacesOnColumnForFalling();
 	}
 
 }

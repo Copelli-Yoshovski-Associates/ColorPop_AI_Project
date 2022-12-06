@@ -120,4 +120,7 @@ public class Handler {
 		return Color.getColor(board[row][column]);
 	}
 
+	public void set(int x, int y, Color color) {
+		board[x][y] = color.getNumber();
+	}
 }
