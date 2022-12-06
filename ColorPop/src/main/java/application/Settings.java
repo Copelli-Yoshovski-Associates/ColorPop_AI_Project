@@ -24,4 +24,5 @@ public class Settings {
 			{1, 3, 1, 1, 3, 3, 3, 1}
 	};
 	public static final int GENERATION_TIME = 5;
+	public static final String FAVICON = "/favicon.png";
 }
