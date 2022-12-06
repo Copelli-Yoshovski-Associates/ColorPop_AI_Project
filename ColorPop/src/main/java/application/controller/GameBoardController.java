@@ -121,6 +121,26 @@ public class GameBoardController {
 					}
 				}
 		}
+		checkEmptySpacesOnRowForCentering();
+		return moves != 0;
+	}
+	private boolean checkEmptySpacesOnRowForCentering(){
+		int moves = 0;
+		boolean hasToCenter = true;
+		while (hasToCenter) {
+			hasToCenter = false;
+			for (int i = 0; i < Settings.ROWS; i++)
+				for (int j = 1; j < Settings.COLUMNS; j++) {
+					int currentColor = h.get(i, j).getNumber();
+					int colorLeft = h.get(i, j-1).getNumber();
+					if (currentColor == Color.EMPTY.getNumber() && colorLeft != Color.EMPTY.getNumber()) {
+						h.set(i, j, h.get(i, j-1));
+						h.set(i, j-1, Color.EMPTY);
+						hasToCenter = true;
+						moves++;
+					}
+				}
+		}
 		return moves != 0;
 	}
 
