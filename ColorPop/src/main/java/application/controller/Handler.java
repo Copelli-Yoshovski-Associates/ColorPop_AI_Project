@@ -1,6 +1,8 @@
 package application.controller;
 
+import application.SceneHandler;
 import application.Settings;
+import application.model.Block;
 import application.model.Color;
 import application.model.Point;
 
@@ -10,14 +12,14 @@ import java.util.Random;
 
 public class Handler {
 
-	private int[][] board = new int[Settings.ROWS][Settings.COLUMNS];
+	private List<Block> board = new ArrayList<>();
 
 	/**
 	 * Generates a random color
 	 *
 	 * @return a random color from the Color enum
-	 * @see Color
 	 *
+	 * @see Color
 	 */
 	private Color randomColor() {
 		Random random = new Random();
@@ -26,7 +28,7 @@ public class Handler {
 	}
 
 	public void initializeBoard() {
-		this.setBoard(new int[Settings.ROWS][Settings.COLUMNS]);
+		this.setBoard(new ArrayList<>());
 	}
 
 	public Color[] generatePreview() {
@@ -40,16 +42,26 @@ public class Handler {
 	public void putPreview(Color[] preview) {
 		shiftBoardUp();
 		for (int i = 0; i < Settings.COLUMNS; i++)
-			board[Settings.ROWS - 1][i] = preview[i].getNumber();
+			board.add(new Block(Settings.ROWS - 1, i, preview[i]));
+		for (int i = 0; i < getBoardColor().length; i++)
+			for (int j = 0; j < getBoardColor()[i].length; j++) {
+				try {
+					SceneHandler.solver.addFactBlock(new Block(i, j, get(i, j)));
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+
+			}
 
 	}
 
 	public void printBoard() {
-		for (int[] row : board) {
-			for (int cell : row)
-				System.out.print(cell + " ");
+		for (int i = 0; i < Settings.ROWS; i++) {
+			for (int j = 0; j < Settings.COLUMNS; j++)
+				System.out.print(get(i, j).getNumber() + " ");
 			System.out.println();
 		}
+
 		for (int i = 0; i < Settings.COLUMNS; i++)
 			System.out.print("==");
 		System.out.println();
@@ -66,18 +78,20 @@ public class Handler {
 	//shift the board up
 	private void shiftBoardUp() {
 		if (gameOver()) System.exit(1);
-		for (int j = 0; j < Settings.ROWS - 1; j++)
-			System.arraycopy(board[j + 1], 0, board[j], 0, Settings.COLUMNS);
+
+		for (int i = 0; i < Settings.ROWS - 1; i++)
+			for (int j = 0; j < Settings.COLUMNS; j++)
+				set(i, j, get(i + 1, j));
 	}
 
 
 	public boolean gameOver() {
 		for (int i = 0; i < Settings.COLUMNS; i++)
-			if (board[0][i] != Color.EMPTY.getNumber()) return true;
+			if (get(0, i) != Color.EMPTY) return true;
 		return false;
 	}
 
-	public void setBoard(int[][] prova) {
+	public void setBoard(List<Block> prova) {
 		this.board = prova;
 	}
 
@@ -93,15 +107,19 @@ public class Handler {
 		List<Point> neighbors = new ArrayList<>();
 		neighbors.add(new Point(row, column));
 		for (Point coords : getNeighborsCoords(row, column))
-			neighbors.addAll(getNeighbors(coords.getX(), coords.getY(), visited, initialColor));
+			neighbors.addAll(getNeighbors(coords.getX(),
+ coords.getY(),
+ visited, initialColor));
 		return neighbors;
 	}
 
 	private List<Point> getNeighborsCoords(int row, int column) {
-		return List.of(
-				new Point(row - 1, column), // up
-				new Point(row + 1, column), // down
-				new Point(row, column - 1), // left
+		return List.of(new Point(row - 1, column),
+ // up
+				new Point(row + 1, column),
+ // down
+				new Point(row, column - 1),
+ // left
 				new Point(row, column + 1)  // right
 		);
 	}
@@ -112,15 +130,24 @@ public class Handler {
 		if (initialColor != get(row, column)) return 0;
 		int count = 1;
 		for (Point coords : getNeighborsCoords(row, column))
-			count += countNeighbors(coords.getX(), coords.getY(), visited, initialColor);
+			count += countNeighbors(coords.getX(),
+ coords.getY(),
+ visited, initialColor);
 		return count;
 	}
 
 	public Color get(int row, int column) {
-		return Color.getColor(board[row][column]);
+		for (Block block : board)
+			if (block.getX() == row && block.getY() == column) return Color.getColor(block.getColorNumber());
+		return Color.EMPTY;
 	}
 
 	public void set(int x, int y, Color color) {
-		board[x][y] = color.getNumber();
+
+		for (Block block : board)
+			if (block.getX() == x && block.getY() == y) {
+				block.setColorNumber(color.getNumber());
+				return;
+			}
 	}
 }
