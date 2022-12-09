@@ -1,7 +1,11 @@
 package application.model;
 
 public enum Color {
-	RED(1, "#FF0000"), GREEN(2, "#00FF00"), BLUE(3, "#0000FF"), YELLOW(4, "#FFFF00"), EMPTY(0, "#FFFFFF");
+	EMPTY(0, "#FFFFFF"),
+	RED(1, "#FF0000"),
+	GREEN(2, "#00FF00"),
+	BLUE(3, "#0000FF"),
+	YELLOW(4, "#FFFF00");
 
 	private final int number;
 	private final String color;
@@ -35,4 +39,7 @@ public enum Color {
 	}
 
 
+	public boolean isSpecial() {
+		return this.number < 0;
+	}
 }
