@@ -1,6 +1,9 @@
 package application;
 
+import application.model.Block;
 import application.model.Color;
+
+import java.util.List;
 
 public class Settings {
 
@@ -23,6 +26,10 @@ public class Settings {
 			{3, 1, 2, 2, 3, 1, 3, 4},
 			{1, 3, 1, 1, 3, 3, 3, 1}
 	};
+
+
 	public static final int GENERATION_TIME = 5;
 	public static final String FAVICON = "/favicon.png";
+	public static final int MIN_NEIGHBORS = 2;
+	public static final int BLOCK_SCORE = 11;
 }
