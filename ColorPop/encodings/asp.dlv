@@ -12,7 +12,7 @@ POS(X,Y):- ROWS(X), COLS(Y).
 
 % BOARD(X,Y,C)| BOARDOUT(X,Y,C):- POS(X,Y), COLORS(C), C=0.
 % :- BOARD(X,Y,C), BOARDOUT(X,Y,C1), C!=C1.
-BOARD(X,Y,C):- POS(X,Y), COLORS(C), C=0, X<7. 
+BOARD(X,Y,C):- POS(X,Y), COLORS(C), C=0, X<7.
 
 % BOARD(X,Y,0):- ROWS(X), COLS(Y), not BOARD(X,Y,C), COLORS(C).
 
@@ -40,3 +40,28 @@ BlockMax(Xc,Yc, COL,S):-S>2, #count{Xb,Yb : inBlock(Xc,Yc,COL,Xb,Yb)}=S, COLORS(
 % #show BOARD/3.
 % #show inBlock/5.
 #show BlockMax/4.
+
+BOARD(7,0,1).
+BOARD(7,1,1).
+BOARD(7,2,1).
+BOARD(7,3,4).
+BOARD(7,4,4).
+BOARD(7,5,3).
+BOARD(7,6,1).
+BOARD(7,7,1).
+BOARD(8,0,3).
+BOARD(8,1,1).
+BOARD(8,2,2).
+BOARD(8,3,2).
+BOARD(8,4,3).
+BOARD(8,5,1).
+BOARD(8,6,3).
+BOARD(8,7,4).
+BOARD(9,0,1).
+BOARD(9,1,3).
+BOARD(9,2,1).
+BOARD(9,3,1).
+BOARD(9,4,1).
+BOARD(9,5,1).
+BOARD(9,6,1).
+BOARD(9,7,1).
