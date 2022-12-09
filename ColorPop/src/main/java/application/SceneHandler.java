@@ -18,7 +18,10 @@ public class SceneHandler {
 	private static GameBoardController gameBoardController;
 	private static SceneHandler instance = null;
 
+	public static Solver solver;
+
 	private SceneHandler() {
+		solver = new Solver();
 	}
 
 	public static SceneHandler getInstance() {
@@ -75,6 +78,10 @@ public class SceneHandler {
 		FXMLLoader loader = loadFXML("GameBoard");
 		BorderPane root = loader.load();
 		gameBoardController = loader.getController();
+
+		solver.setController(gameBoardController);
+		solver.setup();
+
 		scene = new Scene(root);
 		stage.setMinHeight(Settings.DEFAULT_HEIGHT);
 		stage.setMinWidth(Settings.DEFAULT_WIDTH);
