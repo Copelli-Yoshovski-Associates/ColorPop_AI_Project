@@ -1,4 +1,3 @@
-
 #show inMove/3.
 
 col(0..7).
@@ -40,22 +39,29 @@ block(9,7,1).
 pos(X,Y):- row(X), col(Y).
 block(X,Y,C):- pos(X,Y), color(C), C=0, X<7.
 
-
+% riduco il campo di ammissibilità, considerando solo i blocchi colorati
 canBeAssigned(X,Y,C):- block(X,Y,C), C!=0.
 
+% Idea: Prendere un blocco e cercare di raggiungere gli altri blocchi dello stesso colore che sono vicini
 
+% Questo crea una sorta di guess and check.
+% Solo 1 blocco sarà preso come blocco iniziale "start" da quelli che possono essere assegnati
 {start(X,Y,C) : canBeAssigned(X,Y,C)} = 1.
 
 % Guess & Check Moves
+% La mossa sono tutti i blocchi che verranno eliminati dal campo di gioco
 inMove(X,Y,C) | outMove(X,Y,C) :- canBeAssigned(X,Y,C).
 
-%related bloks
+% related blocks
+% Per prendere tutti i blocchi vicini, si parte da un blocco iniziale, 
+% spostandosi di 1 verso destra, sinistra, sopra o sotto
 reached(X,Y,C) :- start(X,Y,C).
 reached(X1,Y,C) :- inMove(X1,Y,C), reached(X,Y,C), X1 = X+1.
 reached(X1,Y,C) :- inMove(X1,Y,C), reached(X,Y,C), X1 = X-1.
 reached(X,Y1,C) :- inMove(X,Y1,C), reached(X,Y,C), Y1 = Y-1.
 reached(X,Y1,C) :- inMove(X,Y1,C), reached(X,Y,C), Y1 = Y+1.
 
+% all blocks must be reached
 :- inMove(X,Y,C), not reached(X,Y,C).
 
 % only the same color
