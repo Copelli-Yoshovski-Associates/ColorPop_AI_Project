@@ -1,4 +1,4 @@
-#show inMove/3.
+%#show inMove/3.
 
 col(0..7).
 row(0..9).

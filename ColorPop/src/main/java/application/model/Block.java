@@ -4,7 +4,7 @@ import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 import lombok.Data;
 
-@Id("BLOCK")
+@Id("block")
 @Data
 public class Block implements java.io.Serializable {
 
@@ -12,7 +12,6 @@ public class Block implements java.io.Serializable {
 	private int x;
 	@Param(1)
 	private int y;
-
 	@Param(2)
 	private int colorNumber;
 

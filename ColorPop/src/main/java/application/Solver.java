@@ -3,6 +3,7 @@ package application;
 import application.controller.GameBoardController;
 import application.model.Block;
 import application.model.Color;
+import application.model.Move;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.Output;
@@ -19,7 +20,7 @@ public class Solver {
 
 	private static GameBoardController app;
 
-	private static String encodingResource = "encodings/asp.dlv";
+	private static String encodingResource = "encodings/asp2.dlv";
 
 	private static Handler handler;
 
@@ -39,6 +40,7 @@ public class Solver {
 		// Specifichiamo i fatti in input ...
 		try {
 			ASPMapper.getInstance().registerClass(Block.class);
+			ASPMapper.getInstance().registerClass(Move.class);
 		} catch (ObjectNotValidException | IllegalAnnotationException e1) {
 			e1.printStackTrace();
 		}
@@ -79,12 +81,24 @@ public class Solver {
 		// Analizziamo l'answer ...
 		AnswerSets answerSets = (AnswerSets) output;
 
+		System.out.println("RISPOSTE: " + answerSets.getAnswersets().size());
+
 		try {
 			if (!answerSets.getOptimalAnswerSets().isEmpty()) {
 				AnswerSet a = answerSets.getOptimalAnswerSets().get(0);
 
-				for (Object obj : a.getAtoms())
-					System.out.println(obj.toString());
+			//	System.out.println("OKKK: " + answerSets.getOptimalAnswerSets().get(0));
+
+				System.out.println("ATOMS: "+a.getAtoms());
+
+				for(Object obj : a.getAtoms()) {
+					if(obj instanceof Move) {
+						Move m = (Move) obj;
+						System.out.println(m);
+						app.removeNeighbors(m.getX(), m.getY());
+						//Thread.sleep(800);
+					}
+				}
 			} else {
 				System.out.println("ABBIAMO TERMINATO LE MOSSE :D ");
 				System.exit(-1);
