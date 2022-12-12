@@ -45,4 +45,4 @@ reached(X,Y1,C) :- inMove(X,Y1,C), reached(X,Y,C), Y1 = Y+1.
 :- #count{X,Y,C : inMove(X,Y,C)} < 3.
 
 % Higher number of blocks
-:~ block(X,Y,C), not inMove(X,Y,C). [1@1,X,Y,C]
+:~ block(X,Y,C), not inMove(X,Y,C). [10-X@1,X,Y,C]

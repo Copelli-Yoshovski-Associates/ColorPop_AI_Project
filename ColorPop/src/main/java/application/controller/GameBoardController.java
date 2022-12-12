@@ -40,31 +40,29 @@ public class GameBoardController {
 
 	@FXML
 	void initialize() {
+		h.initializeBoard();
 		time.setText(Settings.MAX_TIME + "");
 		score.setText("0");
 		TimerTask timeTask = new TimerTask() {
 			@Override
 			public void run() {
 				int currentTime = Integer.parseInt(time.getText());
-				if (currentTime == 0 || h.gameOver()) showResults();
-				else time.setText((currentTime - 1) + "");
 
-				if (currentTime % 2 == 0 && currentTime < Settings.MAX_TIME) {
+				if (currentTime % 2 != 0 && currentTime < Settings.MAX_TIME) {
 					System.out.println("Adding facts");
 
 					for (Block b : h.getBoard())
-						SceneHandler.solver.addFactBlock(b);
+						if (b.getX() >= 0 && b.getY() >= 0) SceneHandler.solver.addFactBlock(b);
 					SceneHandler.solver.prossimaMossa();
 				}
-				if (currentTime % 3 == 0) {
-					Platform.runLater(() -> drawBoard(false));
-					System.out.println(currentTime);
-				}
+				if (currentTime == 0 || h.gameOver()) showResults();
+				else time.setText((currentTime - 1) + "");
+				if (currentTime % 4 == 0) Platform.runLater(() -> drawBoard(false));
+				System.out.println(currentTime);
+
 			}
 		};
 		timer.scheduleAtFixedRate(timeTask, 1000, 1000);
-//		drawBoard();
-		h.initializeBoard();
 	}
 
 	private void defaultSchema() {
@@ -146,34 +144,10 @@ public class GameBoardController {
 					}
 				}
 		}
+
 		Platform.runLater(() -> drawBoard(true));
 		return moves != 0;
 	}
-
-	public boolean centerInTheMiddleOfTheBoard() {
-//		se il blocco si trova in una riga minore a Settings.ROWS/2 si sposta verso destra
-//		se il blocco si trova in una riga maggiore a Settings.ROWS/2 si sposta verso sinistra
-
-		int moves = 0;
-		boolean hasToMove = true;
-		while (hasToMove) {
-			hasToMove = false;
-			for (int i = 0; i < Settings.ROWS; i++)
-				for (int j = 0; j < Settings.COLUMNS; j++) {
-					int currentColor = h.get(i, j).getNumber();
-					int colorUnder = h.get(i, j + 1).getNumber();
-					if (currentColor == Color.EMPTY.getNumber() && colorUnder != Color.EMPTY.getNumber()) {
-						h.set(i, j, h.get(i, j + 1));
-						h.set(i, j + 1, Color.EMPTY);
-						hasToMove = true;
-						moves++;
-					}
-				}
-		}
-		Platform.runLater(() -> drawBoard(true));
-		return moves != 0;
-	}
-
 
 	private void changeColor(int row, int column, Color color) {
 		h.set(row, column, color);

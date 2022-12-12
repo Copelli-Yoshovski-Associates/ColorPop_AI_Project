@@ -6,6 +6,7 @@ import application.model.Color;
 import application.model.Move;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
+import it.unical.mat.embasp.base.OptionDescriptor;
 import it.unical.mat.embasp.base.Output;
 import it.unical.mat.embasp.languages.IllegalAnnotationException;
 import it.unical.mat.embasp.languages.ObjectNotValidException;
@@ -30,10 +31,8 @@ public class Solver {
 		app = appl;
 	}
 
-	public static void setup() throws InterruptedException {
+	public static void setup() {
 		System.out.println("Solver setup");
-		// Creazione dell'oggetto handler che si occuperà di gestire l'invocazione
-		// del sistema ASP da utilizzare ...
 
 		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv-2.exe"));
 
@@ -48,23 +47,8 @@ public class Solver {
 		// Specifichiamo il programma logico tramite file ...
 		InputProgram encoding = new ASPInputProgram();
 		encoding.addFilesPath(encodingResource);
-
-		// Aggiungiamo all'handler il programma logico ...
 		handler.addProgram(encoding);
 	}
-
-//	 public static void addFactTessera(Tessera t) throws Exception {
-//	 System.out.println(String.format("UN FATTO È
-	// %s",t.getWithGlobalIndex().toString()));
-	// facts.addObjectInput(t.getWithGlobalIndex());
-	// }
-
-//	 public static void addFactSbloccabile(Tessera t1, Tessera s1) throws
-//	 Exception{
-//	 facts.addObjectInput(new TesseraSbloccabile(t1.getWithGlobalIndex(),
-
-//	 s1.getWithGlobalIndex()));
-//	 }
 
 	public static void addFactBlock(Block b) {
 //		System.out.println(String.format("UN FATTO È %s", b.toString()));
@@ -82,6 +66,8 @@ public class Solver {
 		// L'handler invoca DLV2 in modo SINCRONO dando come input il programma logico e
 		// i fatti ...
 		Output output = handler.startSync();
+
+//		System.out.println("Output: " + output.getOutput());
 
 		// Analizziamo l'answer ...
 		AnswerSets answerSets = (AnswerSets) output;

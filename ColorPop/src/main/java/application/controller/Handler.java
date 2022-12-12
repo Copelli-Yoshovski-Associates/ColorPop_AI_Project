@@ -87,6 +87,7 @@ public class Handler {
 		if (gameOver()) System.exit(1);
 		for (Block block : board)
 			block.setX(block.getX() - 1);
+	board.removeIf(block -> (block.getX() < 0));
 	}
 
 
