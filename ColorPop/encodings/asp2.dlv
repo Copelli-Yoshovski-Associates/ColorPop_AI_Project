@@ -41,8 +41,8 @@ reached(X,Y1,C) :- inMove(X,Y1,C), reached(X,Y,C), Y1 = Y+1.
 % only the same color
 :- inMove(_,_,C), inMove(_,_,C1), C!=C1.
 
-% number of blocks must be higher than 2
-:- #count{X,Y,C : inMove(X,Y,C)} < 2.
+% number of blocks must be higher than 3
+:- #count{X,Y,C : inMove(X,Y,C)} < 3.
 
 % Higher number of blocks
 :~ block(X,Y,C), not inMove(X,Y,C). [1@1,X,Y,C]

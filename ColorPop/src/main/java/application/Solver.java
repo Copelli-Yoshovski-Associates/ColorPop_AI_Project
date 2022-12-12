@@ -84,7 +84,8 @@ public class Solver {
 //		System.out.println("RISPOSTE: " + answerSets.getAnswersets().size());
 
 		try {
-			if (!answerSets.getOptimalAnswerSets().isEmpty()) {
+			if(answerSets.getAnswersets().isEmpty()) return;
+			if (!app.gameOver()) {
 				AnswerSet a = answerSets.getOptimalAnswerSets().get(0);
 
 			//	System.out.println("OKKK: " + answerSets.getOptimalAnswerSets().get(0));

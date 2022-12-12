@@ -55,17 +55,17 @@ public class GameBoardController {
 //
 //				});
 //
-				if (currentTime % 6 == 0) {
+				if (currentTime % 7 == 0) {
 					System.out.println("Generating new preview");
 					Platform.runLater(() -> drawBoard(false));
 					System.out.println(currentTime);
 				}
-				if (currentTime % 6 == 0 && currentTime < Settings.MAX_TIME ) {
+				if (currentTime % 2 == 0 && currentTime < Settings.MAX_TIME ) {
 					try {
 						System.out.println("Adding facts");
-						for (int i = 0; i < getBoard().length; i++)
-							for (int j = 0; j < getBoard()[i].length; j++)
-								SceneHandler.solver.addFactBlock(new Block(i, j, getBoard()[i][j]));
+
+						for(Block b : h.getBoard())
+							SceneHandler.solver.addFactBlock(b);
 						SceneHandler.solver.prossimaMossa();
 					} catch (Exception e) {
 						throw new RuntimeException(e);
@@ -189,7 +189,7 @@ public class GameBoardController {
 	public boolean removeNeighbors(int row, int column) {
 		List<Point> neighbors = getNeighbors(row, column);
 		if (Settings.DEBUG) System.out.println("found " + neighbors.size() + " neighbors");
-		if (neighbors.size() < Settings.MIN_NEIGHBORS) return false;
+		if (neighbors.size() <= Settings.MIN_NEIGHBORS) return false;
 		if (Settings.DEBUG) System.out.println("removing " + countNeighbors(row, column) + " neighbors");
 
 		addToScore(h.get(row, column).isSpecial(), neighbors.size());
@@ -202,6 +202,10 @@ public class GameBoardController {
 
 	public Color[][] getBoard() {
 		return h.getBoardColor();
+	}
+
+	public boolean gameOver() {
+		return h.gameOver();
 	}
 
 }

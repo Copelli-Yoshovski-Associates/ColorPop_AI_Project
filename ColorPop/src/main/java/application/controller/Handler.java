@@ -78,6 +78,10 @@ public class Handler {
 		return boardArray;
 	}
 
+	public List<Block> getBoard() {
+		return board;
+	}
+
 	//shift the board up
 	private void shiftBoardUp() {
 		if (gameOver()) System.exit(1);
