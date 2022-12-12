@@ -46,4 +46,13 @@ public class Move implements java.io.Serializable {
         this.y = y;
         this.c = c;
     }
+
+    @Override
+    public String toString() {
+        return "Move{" +
+                "x=" + x +
+                ", y=" + y +
+                ", c=" + c +
+                '}';
+    }
 }
