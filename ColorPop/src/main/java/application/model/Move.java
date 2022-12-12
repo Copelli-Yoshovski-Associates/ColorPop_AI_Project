@@ -4,7 +4,7 @@ package application.model;
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 
-@Id("inMossa")
+@Id("inMove")
 public class Move implements java.io.Serializable {
 
     @Param(0)
