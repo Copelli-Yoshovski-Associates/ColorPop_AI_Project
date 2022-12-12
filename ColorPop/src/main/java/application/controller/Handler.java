@@ -79,7 +79,7 @@ public class Handler {
 	}
 
 	public List<Block> getBoard() {
-		return board;
+		return board.parallelStream().map(Block::new).collect(java.util.stream.Collectors.toList());
 	}
 
 	//shift the board up

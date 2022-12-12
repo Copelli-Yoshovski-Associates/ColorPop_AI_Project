@@ -30,6 +30,12 @@ public class Block implements java.io.Serializable {
 		this.colorNumber = color.ordinal();
 	}
 
+	public Block(Block block) {
+		this.x = block.x;
+		this.y = block.y;
+		this.colorNumber = block.colorNumber;
+	}
+
 	public Color getColor() {
 		for (Color c : Color.values())
 			if (c.ordinal() == colorNumber) return c;

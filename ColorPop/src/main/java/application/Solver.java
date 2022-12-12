@@ -66,12 +66,17 @@ public class Solver {
 //	 s1.getWithGlobalIndex()));
 //	 }
 
-	public static void addFactBlock(Block b) throws Exception {
+	public static void addFactBlock(Block b) {
 //		System.out.println(String.format("UN FATTO È %s", b.toString()));
-		facts.addObjectInput(b);
+		try {
+			facts.addObjectInput(b);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
-	public static void prossimaMossa() throws InterruptedException {
+	public static void prossimaMossa() {
 		handler.addProgram(facts);
 
 		// L'handler invoca DLV2 in modo SINCRONO dando come input il programma logico e
@@ -103,11 +108,9 @@ public class Solver {
 			} else {
 				System.out.println("ABBIAMO TERMINATO LE MOSSE :D ");
 				System.exit(-1);
-				Thread.sleep(40000000);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Thread.sleep(1000000);
 		}
 
 		facts.clearAll();

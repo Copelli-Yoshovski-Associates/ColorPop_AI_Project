@@ -12,7 +12,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameBoardController {
 
@@ -45,31 +48,17 @@ public class GameBoardController {
 				int currentTime = Integer.parseInt(time.getText());
 				if (currentTime == 0 || h.gameOver()) showResults();
 				else time.setText((currentTime - 1) + "");
-				Random random = new Random();
 
-//				if (currentTime % 5 == 0) Platform.runLater(() -> {
-//
-//					int randomColumn = random.nextInt(Settings.COLUMNS);
-//					int randomRow = random.nextInt(Settings.ROWS);
-//					if (removeNeighbors(Settings.ROWS - 1, Settings.COLUMNS - 2)) drawBoard();
-//
-//				});
-//
-				if (currentTime % 7 == 0) {
-					System.out.println("Generating new preview");
+				if (currentTime % 2 == 0 && currentTime < Settings.MAX_TIME) {
+					System.out.println("Adding facts");
+
+					for (Block b : h.getBoard())
+						SceneHandler.solver.addFactBlock(b);
+					SceneHandler.solver.prossimaMossa();
+				}
+				if (currentTime % 3 == 0) {
 					Platform.runLater(() -> drawBoard(false));
 					System.out.println(currentTime);
-				}
-				if (currentTime % 2 == 0 && currentTime < Settings.MAX_TIME ) {
-					try {
-						System.out.println("Adding facts");
-
-						for(Block b : h.getBoard())
-							SceneHandler.solver.addFactBlock(b);
-						SceneHandler.solver.prossimaMossa();
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
 				}
 			}
 		};
@@ -90,8 +79,8 @@ public class GameBoardController {
 	public void drawBoard(boolean onlyRedraw) {
 		colorBlocks.getChildren().clear();
 		if (!onlyRedraw) {
-			if (Settings.DEBUG) defaultSchema();
-			else h.putPreview(h.generatePreview());
+			if (Settings.DEBUG) System.out.println("Generating new preview");
+			h.putPreview(h.generatePreview());
 		}
 		fillWithAnchorPanes();
 		ChangeColorGrid();
@@ -161,6 +150,31 @@ public class GameBoardController {
 		return moves != 0;
 	}
 
+	public boolean centerInTheMiddleOfTheBoard() {
+//		se il blocco si trova in una riga minore a Settings.ROWS/2 si sposta verso destra
+//		se il blocco si trova in una riga maggiore a Settings.ROWS/2 si sposta verso sinistra
+
+		int moves = 0;
+		boolean hasToMove = true;
+		while (hasToMove) {
+			hasToMove = false;
+			for (int i = 0; i < Settings.ROWS; i++)
+				for (int j = 0; j < Settings.COLUMNS; j++) {
+					int currentColor = h.get(i, j).getNumber();
+					int colorUnder = h.get(i, j + 1).getNumber();
+					if (currentColor == Color.EMPTY.getNumber() && colorUnder != Color.EMPTY.getNumber()) {
+						h.set(i, j, h.get(i, j + 1));
+						h.set(i, j + 1, Color.EMPTY);
+						hasToMove = true;
+						moves++;
+					}
+				}
+		}
+		Platform.runLater(() -> drawBoard(true));
+		return moves != 0;
+	}
+
+
 	private void changeColor(int row, int column, Color color) {
 		h.set(row, column, color);
 		colorBlocks.getChildren().get(row * Settings.COLUMNS + column).setStyle("-fx-background-color: " + Color.getRGB(color) + ";");
@@ -195,7 +209,6 @@ public class GameBoardController {
 		addToScore(h.get(row, column).isSpecial(), neighbors.size());
 		for (Point p : neighbors)
 			changeColor(p.getX(), p.getY(), Color.EMPTY);
-		System.out.println("After removing neighbors");
 
 		return checkEmptySpacesOnColumnForFalling();
 	}
