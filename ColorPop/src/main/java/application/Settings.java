@@ -32,4 +32,5 @@ public class Settings {
 	public static final String FAVICON = "/favicon.png";
 	public static final int MIN_NEIGHBORS = 2;
 	public static final int BLOCK_SCORE = 11;
+	public static final int EMPTY_SCORE = 100;
 }

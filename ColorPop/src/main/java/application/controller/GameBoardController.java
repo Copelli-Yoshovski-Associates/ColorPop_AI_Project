@@ -48,7 +48,7 @@ public class GameBoardController {
 			public void run() {
 				int currentTime = Integer.parseInt(time.getText());
 
-				if (currentTime % 2 != 0 && currentTime < Settings.MAX_TIME) {
+				if (currentTime != Settings.MAX_TIME) {
 					System.out.println("Adding facts");
 
 					for (Block b : h.getBoard())
@@ -87,9 +87,23 @@ public class GameBoardController {
 
 	public void showResults() {
 		timer.cancel();
-		// TODO Auto-generated method stub
-		System.out.println("show results");
+		int currentTime = Integer.parseInt(time.getText());
+		if (currentTime < 1) System.out.println("You won!");
+		else System.out.println("You lost!");
+		System.out.println("show results: ");
+		int emptyBlocks = countEmptyBlocks();
+		if (currentTime >= 1) emptyBlocks = 0;
+		int currentScore = Integer.parseInt(score.getText()) + emptyBlocks * Settings.EMPTY_SCORE;
+		System.out.println("\tscore: " + currentScore);
+		if (currentScore > 0) System.out.println("\tYou destroyed " + currentScore / ((Settings.EMPTY_SCORE+Settings.BLOCK_SCORE)/2) + " blocks");
 		System.exit(2);
+	}
+
+	private int countEmptyBlocks() {
+		int emptyBlocks = 0;
+		for (Block b : h.getBoard())
+			if (b.getColor() == Color.EMPTY) emptyBlocks++;
+		return emptyBlocks;
 	}
 
 	// fill grade pane with anchor panes

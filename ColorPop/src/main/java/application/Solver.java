@@ -88,12 +88,12 @@ public class Solver {
 						Move m = (Move) obj;
 						System.out.println(m);
 						app.removeNeighbors(m.getX(), m.getY());
-						//Thread.sleep(800);
+						Thread.sleep(80);
 					}
 				}
 			} else {
 				System.out.println("ABBIAMO TERMINATO LE MOSSE :D ");
-				System.exit(-1);
+				app.showResults();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
