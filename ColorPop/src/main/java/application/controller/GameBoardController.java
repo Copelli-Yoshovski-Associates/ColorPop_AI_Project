@@ -55,7 +55,12 @@ public class GameBoardController {
 //
 //				});
 //
-				if (currentTime < Settings.MAX_TIME) {
+				if (currentTime % 6 == 0) {
+					System.out.println("Generating new preview");
+					Platform.runLater(() -> drawBoard(false));
+					System.out.println(currentTime);
+				}
+				if (currentTime % 6 == 0 && currentTime < Settings.MAX_TIME ) {
 					try {
 						System.out.println("Adding facts");
 						for (int i = 0; i < getBoard().length; i++)
@@ -66,21 +71,15 @@ public class GameBoardController {
 						throw new RuntimeException(e);
 					}
 				}
-				if (currentTime % (Settings.GENERATION_TIME * 2) == 0 || currentTime == Settings.MAX_TIME)
-					Platform.runLater(() -> {
-						System.out.println("Generating new preview");
-						drawBoard();
-					});
-				System.out.println(currentTime);
-
-
 			}
 		};
 		timer.scheduleAtFixedRate(timeTask, 1000, 1000);
+//		drawBoard();
 		h.initializeBoard();
 	}
 
 	private void defaultSchema() {
+		if (getBoard() != null) return;
 		List<Block> prova = new ArrayList<>();
 		for (int i = 0; i < Settings.ROWS; i++)
 			for (int j = 0; j < Settings.COLUMNS; j++)
@@ -88,10 +87,12 @@ public class GameBoardController {
 		h.setBoard(prova);
 	}
 
-	private void drawBoard() {
+	public void drawBoard(boolean onlyRedraw) {
 		colorBlocks.getChildren().clear();
-		if (Settings.DEBUG) defaultSchema();
-		else h.putPreview(h.generatePreview());
+		if (!onlyRedraw) {
+			if (Settings.DEBUG) defaultSchema();
+			else h.putPreview(h.generatePreview());
+		}
 		fillWithAnchorPanes();
 		ChangeColorGrid();
 		h.printBoard();
@@ -156,6 +157,7 @@ public class GameBoardController {
 					}
 				}
 		}
+		Platform.runLater(() -> drawBoard(true));
 		return moves != 0;
 	}
 
@@ -184,7 +186,7 @@ public class GameBoardController {
 		});
 	}
 
-	private boolean removeNeighbors(int row, int column) {
+	public boolean removeNeighbors(int row, int column) {
 		List<Point> neighbors = getNeighbors(row, column);
 		if (Settings.DEBUG) System.out.println("found " + neighbors.size() + " neighbors");
 		if (neighbors.size() < Settings.MIN_NEIGHBORS) return false;

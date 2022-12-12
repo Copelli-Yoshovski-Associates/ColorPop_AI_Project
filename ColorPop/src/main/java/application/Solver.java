@@ -67,7 +67,7 @@ public class Solver {
 //	 }
 
 	public static void addFactBlock(Block b) throws Exception {
-		System.out.println(String.format("UN FATTO È %s", b.toString()));
+//		System.out.println(String.format("UN FATTO È %s", b.toString()));
 		facts.addObjectInput(b);
 	}
 
@@ -81,7 +81,7 @@ public class Solver {
 		// Analizziamo l'answer ...
 		AnswerSets answerSets = (AnswerSets) output;
 
-		System.out.println("RISPOSTE: " + answerSets.getAnswersets().size());
+//		System.out.println("RISPOSTE: " + answerSets.getAnswersets().size());
 
 		try {
 			if (!answerSets.getOptimalAnswerSets().isEmpty()) {
@@ -89,7 +89,7 @@ public class Solver {
 
 			//	System.out.println("OKKK: " + answerSets.getOptimalAnswerSets().get(0));
 
-				System.out.println("ATOMS: "+a.getAtoms());
+//				System.out.println("ATOMS: "+a.getAtoms());
 
 				for(Object obj : a.getAtoms()) {
 					if(obj instanceof Move) {

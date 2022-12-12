@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Handler {
 
-	private List<Block> board = new ArrayList<>();
+	private List<Block> board;
 
 	/**
 	 * Generates a random color
@@ -40,9 +40,12 @@ public class Handler {
 
 	// put the generated array of color in the last row of the board
 	public void putPreview(Color[] preview) {
+
 		shiftBoardUp();
+
 		for (int i = 0; i < Settings.COLUMNS; i++)
 			board.add(new Block(Settings.ROWS - 1, i, preview[i]));
+
 		for (int i = 0; i < getBoardColor().length; i++)
 			for (int j = 0; j < getBoardColor()[i].length; j++) {
 				try {
@@ -78,10 +81,8 @@ public class Handler {
 	//shift the board up
 	private void shiftBoardUp() {
 		if (gameOver()) System.exit(1);
-
-		for (int i = 0; i < Settings.ROWS - 1; i++)
-			for (int j = 0; j < Settings.COLUMNS; j++)
-				set(i, j, get(i + 1, j));
+		for (Block block : board)
+			block.setX(block.getX() - 1);
 	}
 
 
@@ -107,19 +108,17 @@ public class Handler {
 		List<Point> neighbors = new ArrayList<>();
 		neighbors.add(new Point(row, column));
 		for (Point coords : getNeighborsCoords(row, column))
-			neighbors.addAll(getNeighbors(coords.getX(),
- coords.getY(),
- visited, initialColor));
+			neighbors.addAll(getNeighbors(coords.getX(), coords.getY(), visited, initialColor));
 		return neighbors;
 	}
 
 	private List<Point> getNeighborsCoords(int row, int column) {
 		return List.of(new Point(row - 1, column),
- // up
+				// up
 				new Point(row + 1, column),
- // down
+				// down
 				new Point(row, column - 1),
- // left
+				// left
 				new Point(row, column + 1)  // right
 		);
 	}
@@ -130,9 +129,7 @@ public class Handler {
 		if (initialColor != get(row, column)) return 0;
 		int count = 1;
 		for (Point coords : getNeighborsCoords(row, column))
-			count += countNeighbors(coords.getX(),
- coords.getY(),
- visited, initialColor);
+			count += countNeighbors(coords.getX(), coords.getY(), visited, initialColor);
 		return count;
 	}
 
@@ -142,12 +139,14 @@ public class Handler {
 		return Color.EMPTY;
 	}
 
-	public void set(int x, int y, Color color) {
 
+	public void set(int row, int column, Color color) {
 		for (Block block : board)
-			if (block.getX() == x && block.getY() == y) {
+			if (block.getX() == row && block.getY() == column) {
 				block.setColorNumber(color.getNumber());
 				return;
 			}
+
+
 	}
 }

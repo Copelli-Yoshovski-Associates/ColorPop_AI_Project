@@ -13,7 +13,7 @@ public class Settings {
 	public static final int COLUMNS = 8;
 	public static final int TOTAL_COLORS = Color.values().length - 1;
 	public static final int MAX_TIME = 120;
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	public static final int[][] DEFAULT_SCHEMA = {
 			{0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0},
