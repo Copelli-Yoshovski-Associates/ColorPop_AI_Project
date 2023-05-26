@@ -2,6 +2,7 @@ package application.controller;
 
 import application.SceneHandler;
 import application.Settings;
+import application.Solver;
 import application.model.Block;
 import application.model.Color;
 import application.model.Point;
@@ -49,7 +50,7 @@ public class Handler {
 		for (int i = 0; i < getBoardColor().length; i++)
 			for (int j = 0; j < getBoardColor()[i].length; j++) {
 				try {
-					SceneHandler.solver.addFactBlock(new Block(i, j, get(i, j)));
+					Solver.addFactBlock(new Block(i, j, get(i, j)));
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}

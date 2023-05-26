@@ -79,8 +79,8 @@ public class SceneHandler {
 		BorderPane root = loader.load();
 		gameBoardController = loader.getController();
 
-		solver.setController(gameBoardController);
-		solver.setup();
+		Solver.setController(gameBoardController);
+		Solver.setup();
 
 		scene = new Scene(root);
 		stage.setMinHeight(Settings.DEFAULT_HEIGHT);

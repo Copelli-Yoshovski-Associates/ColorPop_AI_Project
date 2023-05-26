@@ -21,11 +21,11 @@ public class Solver {
 
 	private static GameBoardController app;
 
-	private static String encodingResource = "encodings/asp2.dlv";
+	private static final String encodingResource = "encodings/asp2.dlv";
 
 	private static Handler handler;
 
-	private static InputProgram facts = new ASPInputProgram();
+	private static final InputProgram facts = new ASPInputProgram();
 
 	public static void setController(GameBoardController appl) {
 		app = appl;

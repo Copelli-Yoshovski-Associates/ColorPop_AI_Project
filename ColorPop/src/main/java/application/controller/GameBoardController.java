@@ -2,6 +2,7 @@ package application.controller;
 
 import application.SceneHandler;
 import application.Settings;
+import application.Solver;
 import application.model.Block;
 import application.model.Color;
 import application.model.Point;
@@ -52,8 +53,8 @@ public class GameBoardController {
 					System.out.println("Adding facts");
 
 					for (Block b : h.getBoard())
-						if (b.getX() >= 0 && b.getY() >= 0) SceneHandler.solver.addFactBlock(b);
-					SceneHandler.solver.prossimaMossa();
+						if (b.getX() >= 0 && b.getY() >= 0) Solver.addFactBlock(b);
+					Solver.prossimaMossa();
 				}
 				if (currentTime == 0 || h.gameOver()) showResults();
 				else time.setText((currentTime - 1) + "");
