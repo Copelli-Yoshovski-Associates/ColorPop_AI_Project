@@ -5,6 +5,12 @@ This project showcases the integration of Artificial Intelligence (AI) with Java
 > [Francesco Copelli](https://www.linkedin.com/in/francesco-copelli/) (Back-End and EmbASP Integration) <br>
 > [Stefan Yoshovski](https://www.linkedin.com/in/stefan-yoshovski/) (UI and ASP Encode)
 
+# Table of Contents
+- [Used Technologies](#used-technologies)
+- [What is Answer Set Programming (ASP)?](#what-is-answer-set-programming-asp)
+- [ASP Encoding](#asp-encoding)
+- [Video Demo and Snapshots](#video-demo-and-snapshots)
+
 ## Used Technologies
 - Java
 - JavaFX
