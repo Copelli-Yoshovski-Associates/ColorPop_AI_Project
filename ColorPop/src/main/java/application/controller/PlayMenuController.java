@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.ResultsReader;
 import application.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -30,14 +31,20 @@ public class PlayMenuController {
     private ImageView imageInfo;
 
     @FXML
-    void playComputerMode(MouseEvent event) throws Exception{
+    public void initialize() {
+        int highestScore = ResultsReader.getInstance().getHighestScore();
+        labelScore.setText(highestScore + "");
+    }
+
+    @FXML
+    void playComputerMode(MouseEvent event) throws Exception {
 
         SceneHandler.getInstance().setGameScene();
     }
 
     @FXML
     void playHumanMode(MouseEvent event) {
-
+        // to implement
     }
 
     @FXML

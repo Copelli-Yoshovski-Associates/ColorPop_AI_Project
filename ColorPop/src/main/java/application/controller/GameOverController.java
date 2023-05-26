@@ -1,16 +1,24 @@
 package application.controller;
 
+import application.ResultsReader;
+import application.SceneHandler;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-import java.awt.event.MouseEvent;
-
 public class GameOverController {
 
     @FXML
+    private Text endText;
+
+    @FXML
     private BorderPane gameOverText;
+
+    @FXML
+    private ImageView attualScore;
 
     @FXML
     private Text currentScore;
@@ -22,10 +30,23 @@ public class GameOverController {
     private HBox playAgain;
 
     @FXML
-    void playAgain(MouseEvent event) {
-
+    public void initialize() {
+        int highestScore = ResultsReader.getInstance().getHighestScore();
+        bestScore.setText(highestScore + "");
     }
 
-    
+    @FXML
+    void play(MouseEvent event) throws Exception {
+        SceneHandler.getInstance().setGameScene();
+    }
+
+    public void updateScreen(boolean win,int score){
+        if(win){
+            endText.setText("You Win!");
+        }else{
+            endText.setText("Game Over!");
+        }
+        currentScore.setText(score+"");
+    }
 
 }

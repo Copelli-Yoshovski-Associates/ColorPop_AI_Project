@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.ResultsReader;
 import application.SceneHandler;
 import application.Settings;
 import application.Solver;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameBoardController {
 
@@ -53,12 +55,21 @@ public class GameBoardController {
 					System.out.println("Adding facts");
 
 					for (Block b : h.getBoard())
-						if (b.getX() >= 0 && b.getY() >= 0) Solver.addFactBlock(b);
+						if (b.getX() >= 0 && b.getY() >= 0)
+							Solver.addFactBlock(b);
 					Solver.prossimaMossa();
 				}
-				if (currentTime == 0 || h.gameOver()) showResults();
-				else time.setText((currentTime - 1) + "");
-				if (currentTime % 4 == 0) Platform.runLater(() -> drawBoard(false));
+				if (currentTime == 0 || h.gameOver())
+					try {
+						showResults();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				else
+					time.setText((currentTime - 1) + "");
+				if (currentTime % 4 == 0)
+					Platform.runLater(() -> drawBoard(false));
 				System.out.println(currentTime);
 
 			}
@@ -67,7 +78,8 @@ public class GameBoardController {
 	}
 
 	private void defaultSchema() {
-		if (getBoard() != null) return;
+		if (getBoard() != null)
+			return;
 		List<Block> prova = new ArrayList<>();
 		for (int i = 0; i < Settings.ROWS; i++)
 			for (int j = 0; j < Settings.COLUMNS; j++)
@@ -78,7 +90,8 @@ public class GameBoardController {
 	public void drawBoard(boolean onlyRedraw) {
 		colorBlocks.getChildren().clear();
 		if (!onlyRedraw) {
-			if (Settings.DEBUG) System.out.println("Generating new preview");
+			if (Settings.DEBUG)
+				System.out.println("Generating new preview");
 			h.putPreview(h.generatePreview());
 		}
 		fillWithAnchorPanes();
@@ -86,24 +99,40 @@ public class GameBoardController {
 		h.printBoard();
 	}
 
-	public void showResults() {
+	public void showResults() throws Exception {
+		AtomicBoolean win = new AtomicBoolean(false);
 		timer.cancel();
 		int currentTime = Integer.parseInt(time.getText());
-		if (currentTime < 1) System.out.println("You won!");
-		else System.out.println("You lost!");
+		if (currentTime < 1) {
+			System.out.println("You won!");
+			win.set(true);
+		} else
+			System.out.println("You lost!");
 		System.out.println("show results: ");
 		int emptyBlocks = countEmptyBlocks();
-		if (currentTime >= 1) emptyBlocks = 0;
+		if (currentTime >= 1)
+			emptyBlocks = 0;
 		int currentScore = Integer.parseInt(score.getText()) + emptyBlocks * Settings.EMPTY_SCORE;
 		System.out.println("\tscore: " + currentScore);
-		if (currentScore > 0) System.out.println("\tYou destroyed " + currentScore / ((Settings.EMPTY_SCORE+Settings.BLOCK_SCORE)/2) + " blocks");
-		System.exit(2);
+		if (currentScore > 0)
+			System.out.println("\tYou destroyed " + currentScore / ((Settings.EMPTY_SCORE + Settings.BLOCK_SCORE) / 2)
+					+ " blocks");
+
+		ResultsReader.getInstance().writeResultToFile(currentScore);
+		Platform.runLater(() -> {
+			try {
+				SceneHandler.getInstance().setGameOverScene(win.get(), currentScore);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	private int countEmptyBlocks() {
 		int emptyBlocks = 0;
 		for (Block b : h.getBoard())
-			if (b.getColor() == Color.EMPTY) emptyBlocks++;
+			if (b.getColor() == Color.EMPTY)
+				emptyBlocks++;
 		return emptyBlocks;
 	}
 
@@ -166,7 +195,8 @@ public class GameBoardController {
 
 	private void changeColor(int row, int column, Color color) {
 		h.set(row, column, color);
-		colorBlocks.getChildren().get(row * Settings.COLUMNS + column).setStyle("-fx-background-color: " + Color.getRGB(color) + ";");
+		colorBlocks.getChildren().get(row * Settings.COLUMNS + column)
+				.setStyle("-fx-background-color: " + Color.getRGB(color) + ";");
 	}
 
 	private int countNeighbors(int row, int column) {
@@ -181,8 +211,9 @@ public class GameBoardController {
 		Platform.runLater(() -> {
 			if (!isSpecialBlock)
 				score.setText((Integer.parseInt(score.getText()) + increment * Settings.BLOCK_SCORE) + "");
-//			else
-//				score.setText((Integer.parseInt(score.getText()) + increment * Settings.SPECIAL_BLOCK_SCORE) + "");
+			// else
+			// score.setText((Integer.parseInt(score.getText()) + increment *
+			// Settings.SPECIAL_BLOCK_SCORE) + "");
 
 			return;
 
@@ -191,9 +222,12 @@ public class GameBoardController {
 
 	public boolean removeNeighbors(int row, int column) {
 		List<Point> neighbors = getNeighbors(row, column);
-		if (Settings.DEBUG) System.out.println("found " + neighbors.size() + " neighbors");
-		if (neighbors.size() <= Settings.MIN_NEIGHBORS) return false;
-		if (Settings.DEBUG) System.out.println("removing " + countNeighbors(row, column) + " neighbors");
+		if (Settings.DEBUG)
+			System.out.println("found " + neighbors.size() + " neighbors");
+		if (neighbors.size() <= Settings.MIN_NEIGHBORS)
+			return false;
+		if (Settings.DEBUG)
+			System.out.println("removing " + countNeighbors(row, column) + " neighbors");
 
 		addToScore(h.get(row, column).isSpecial(), neighbors.size());
 		for (Point p : neighbors)
@@ -209,5 +243,6 @@ public class GameBoardController {
 	public boolean gameOver() {
 		return h.gameOver();
 	}
+
 
 }

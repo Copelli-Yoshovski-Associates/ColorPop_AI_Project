@@ -12,7 +12,7 @@ public class Settings {
 	public static final int ROWS = 10;
 	public static final int COLUMNS = 8;
 	public static final int TOTAL_COLORS = Color.values().length - 1;
-	public static final int MAX_TIME = 120;
+	public static final int MAX_TIME = 60;
 	public static final boolean DEBUG = false;
 	public static final int[][] DEFAULT_SCHEMA = {
 			{0, 0, 0, 0, 0, 0, 0, 0},
@@ -28,7 +28,7 @@ public class Settings {
 	};
 
 
-	public static final int GENERATION_TIME = 5;
+	public static final int GENERATION_TIME = 3;
 	public static final String FAVICON = "/favicon.png";
 	public static final int MIN_NEIGHBORS = 2;
 	public static final int BLOCK_SCORE = 11;

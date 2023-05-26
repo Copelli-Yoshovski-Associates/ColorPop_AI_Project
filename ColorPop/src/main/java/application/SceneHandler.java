@@ -1,6 +1,7 @@
 package application;
 
 import application.controller.GameBoardController;
+import application.controller.GameOverController;
 import application.controller.PlayMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ public class SceneHandler {
 	private Stage stage;
 	private static PlayMenuController playMenuController;
 	private static GameBoardController gameBoardController;
+	private static GameOverController gameOverController;
 	private static SceneHandler instance = null;
 
 	public static Solver solver;
@@ -87,8 +89,38 @@ public class SceneHandler {
 		stage.setMinWidth(Settings.DEFAULT_WIDTH);
 		stage.setScene(scene);
 		stage.setResizable(true);
-		stage.setMaximized(true);
+		stage.setMaximized(false);
+		stage.setWidth(stage.getWidth() + 1);
 		stage.show();
-		stage.setOnCloseRequest(e -> gameBoardController.showResults());
+		stage.setOnCloseRequest(e -> {
+			try {
+				gameBoardController.showResults();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 	}
+
+	public void setGameOverScene(boolean win, int currentScore) throws Exception {
+		FXMLLoader loader = loadFXML("GameOver");
+		BorderPane root = loader.load();
+		gameOverController = loader.getController();
+
+		gameOverController.updateScreen(win, currentScore);
+
+		System.out.println("Current SCENE HANDLER: " + currentScore);
+		scene = new Scene(root);
+		stage.setMinHeight(Settings.DEFAULT_HEIGHT);
+		stage.setMinWidth(Settings.DEFAULT_WIDTH);
+		stage.setScene(scene);
+		stage.setResizable(true);
+		stage.setMaximized(false);
+		stage.setWidth(stage.getWidth() + 1);
+		stage.show();
+		stage.setOnCloseRequest(e -> {System.exit(2);});
+	}
+
+	
+
 }
